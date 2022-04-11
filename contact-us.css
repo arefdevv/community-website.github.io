@@ -135,6 +135,10 @@ body {
   margin-top: 20px;
 }
 
+.phone-number {
+  color: #056c4e;
+}
+
 .contact {
   position: relative;
   padding-top: 50px;
