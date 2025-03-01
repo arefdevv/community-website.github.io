@@ -3,157 +3,616 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <title>Samen AlHojaj - Empowering Youth Through Culture</title>
     <script src="https://kit.fontawesome.com/637bf1fd0a.js" crossorigin="anonymous"></script>
-    <title> Heiaty Samen Al Hojaj - SamenAlHojaj.com.au</title>
-    <link rel="icon" href="./favicon-16x16.png">
-    <meta name="description" content="Samen Al Hojaj Social & Cultural Community was established in 2018. 
-    Most members of this community is made up of Youngers, Teenagers and young adults who'm are in school, high school and 
-    university completing their studies in a range of different fields to become a beneficial figure for the society here in Australia. 
-    Every year the managers of Samen Al Hojaj host a range of events and festival such as Nawroz Festival, 
-    Eid Qurban Festival also known as Eid al-Adha Festival and also Muharram which is a very important month for all the Shia Muslims around the world. Samen Al Hojaj also host a yearly event for students who finished their year 12 VCE studies and are starting 
-    university  to congratulate them on reaching the milestone and moving on to the next.">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #056c4e;
+            --primary-light: #0a8163;
+            --secondary: #d8b172;
+            --secondary-light: #e6c28e;
+            --dark: #1a1a1a;
+            --light: #f4f8f7;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.5rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+            animation: movePattern 60s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            align-self: center;
+            padding: 4rem;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Events Section */
+        .events {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: var(--light);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 2rem;
+        }
+
+        .event-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .event-content p {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem;
+            color: var(--white);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                padding: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+
+
+        /* Mobile menu button */
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+/* Mobile menu styles */
+.nav-links.active {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    background: white;
+    left: 0;
+    right: 0;
+    top: 70px;
+    padding: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+
+/* Update media query */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
     
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-links.active a {
+        padding: 1rem 0;
+    }
+    
+    .nav-links.active a::after {
+        display: none;
+    }
+    
+    .nav-container {
+        padding: 0.5rem 0;
+    }
+}
+    </style>
 </head>
 <body>
-
-<header class="header">
-    <div class="logo">
-        <a href="./index.html">
-            <img class="logo-img" src="./logo.png" alt="">
-        </a>
-    </div>
-
-    <div class="navigation">
-
-        <input type="checkbox" class="toggle-menu">
-        <div class="hamburger">
-
+    <nav class="navbar">
+        <div class="nav-container">
+            <img src="./logo.png" alt="Samen Al Hojaj Logo" class="logo">
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#events">Events</a>
+                <a href="#gallery">Gallery</a>
+                <a href="./highAchievers.html">High Achievers</a>
+                <a href="./team.html">Our Team</a>
+                <a href="./contact-us.html">Contact</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
+    </nav>
 
-        <ul class="menu">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="#about-us">About</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="./highAchievers.html">High Achievers</a></li>
-            <li><a href="./team.html">The Team</a></li>
-            <li><a href="./contact-us.html">Contact Us</a></li>
-        </ul>
-    </div>
-</header>
-    
-    <section id="first">
-        <div class="learn-more">
-            <h1 class="learn-more--header"> Heiaty Samen Al Hojaj Incorporated Social & Cultural Community </h1>
-            <a href="#about-us"><button class="learn-more--btn">Learn More</button></a>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Empowering Youth Through Culture</h1>
+            <p>Join Samen Al Hojaj's vibrant community of young achievers shaping Australia's multicultural future.</p>
+            <a href="#events" class="btn">Explore Our Events</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <h3>150+</h3>
+                <p>Active Members</p>
+            </div>
+            <div class="stat-card">
+                <h3>10+</h3>
+                <p>Annual Events</p>
+            </div>
+            <div class="stat-card">
+                <h3>20+</h3>
+                <p>High Achievers</p>
+            </div>
+            <div class="stat-card">
+                <h3>8+</h3>
+                <p>Years of Impact</p>
+            </div>
         </div>
     </section>
-    <section id="about-us">
-        <h1 class="about-us--header">About Us</h1>
-                <p class="about-us--para">Samen Al Hojaj Social & Cultural Community was established in 2018. 
-                    <br> Most members of this community is made up of Youngers, Teenagers and young adults who'm are in school, high school and 
-                    <br>university completing their studies in a range of different fields to become a beneficial figure for the society here in Australia. 
-                    <br> Every year the managers of Samen Al Hojaj host a range of events and festival such as Nawroz Festival, 
-                    <br> Eid Qurban Festival also known as Eid al-Adha Festival and also Muharram which is a very important month for all the Shia Muslims around the world. Samen Al Hojaj also host a yearly event for students who finished their year 12 VCE studies and are starting 
-                    <br>university  to congratulate them on reaching the milestone and moving on to the next. 
-                </p>
-    </section>
-    <div class="wave-wrapper">
-        <img class="wave" src="./wave.svg" alt="">
-    <img class="wave2" src="./wave2.svg" alt="">
-    </div>
-    <section id="gallery">
-        <h1 class="gallery-header">Gallery</h1>
-        <div class="images-wrapper">
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo10.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>High Achiever 2022 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo1.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Birth of Imam Mahdi Festival 2021 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo11.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Meeting one of the Labor MPs </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo2.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Australia Day 2018 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo3.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Birth of Imam Mahdi Festival 2022 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo4.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Birth of Imam Mahdi Festival 2019 awards </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo5.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Birth of Imam Mahdi Festival 2019 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo6.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Futsal Team </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo7.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Muharram 2018 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1" src="./photo8.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Nawroz Festival 2018 </h2>
-                </div>
-            </div>
-            <div class="image-wrapper">
-                <img class="gallery-images image1 last-img" src="./photo9.jpeg" alt="">
-                <div class="image-wrapper--bg"></div>
-                <div class="image-description">
-                    <h2>Birth of Imam Mahdi Festival 2022 </h2>
-                </div>
-            </div>   
-        </div>
-        <hr>
-    </section>
-    <div class="footer">
-    <div class="footer-wrapper">
-        <p>Copyright © Samen Al Hojaj 2018</p>
-        <a class="fb-icon" href="https://www.facebook.com/Samen.Alhojaj2018/" target="_blank">
-            <i class="fa-brands fa-facebook-square"></i>
-        </a>
 
-    </div>
-    </div>
-    
+    <section id="events" class="events">
+        <div class="section-title">
+            <h2>Upcoming Events</h2>
+            <p>Join us in celebrating our rich cultural heritage</p>
+        </div>
+        <div class="events-grid">
+            <div class="event-card">
+                <img src="https://media.npr.org/assets/img/2017/03/21/istock-469241816_custom-1695a3114d5173e173a74a9e6c83f9e65cafcece.jpg" alt="Nawroz Festival" class="event-image">
+                <div class="event-content">
+                    <h3>Nawroz Festival</h3>
+                    <p>Celebrate the Afghan New Year with traditional music, dance, and cuisine.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="https://i.natgeofe.com/n/02168fdc-6958-4cf3-8f2c-7f414806b684/GettyImages-1240435414_3x2.jpg" alt="Eid al-Adha Festival" class="event-image">
+                <div class="event-content">
+                    <h3>Eid al-Fitr Festival</h3>
+                    <p>Join our community celebration with activities for all ages.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl4T6kQZIRdJEYWZ132fu4gtyoBss9rLCFxw&s" alt="Academic Achievement" class="event-image">
+                <div class="event-content">
+                    <h3>VCE Achievement Ceremony</h3>
+                    <p>Celebrating our graduating students' academic excellence.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="section-title">
+            <h2>Our Community</h2>
+            <p>Moments that define our journey</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="./photo1.jpeg" alt="Birth of Imam Mahdi Festival">
+                <div class="gallery-overlay">
+                    <h3>Birth of Imam Mahdi Festival</h3>
+                    <p>Community gathering celebrating this important cultural event</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo2.jpeg" alt="Australia Day">
+                <div class="gallery-overlay">
+                    <h3>Australia Day Celebration</h3>
+                    <p>Our community participating in national celebrations</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo3.jpeg" alt="Youth Leadership Workshop">
+                <div class="gallery-overlay">
+                    <h3>Youth Leadership Workshop</h3>
+                    <p>Developing tomorrow's community leaders</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo4.jpeg" alt="Cultural Dance Performance">
+                <div class="gallery-overlay">
+                    <h3>Cultural Dance Performance</h3>
+                    <p>Preserving our heritage through traditional arts</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo5.jpeg" alt="Community Service Day">
+                <div class="gallery-overlay">
+                    <h3>Community Service Day</h3>
+                    <p>Volunteers working together to give back</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo6.jpeg" alt="Educational Seminar">
+                <div class="gallery-overlay">
+                    <h3>Educational Seminar</h3>
+                    <p>Learning opportunities for our community members</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo7.jpeg" alt="Eid Celebration">
+                <div class="gallery-overlay">
+                    <h3>Eid Celebration</h3>
+                    <p>Joyful gatherings during our important festivals</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo8.jpeg" alt="Youth Sports Tournament">
+                <div class="gallery-overlay">
+                    <h3>Youth Sports Tournament</h3>
+                    <p>Building teamwork and healthy competition</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo9.jpeg" alt="Multicultural Food Festival">
+                <div class="gallery-overlay">
+                    <h3>Multicultural Food Festival</h3>
+                    <p>Sharing our diverse culinary traditions</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo10.jpeg" alt="High Achiever 2022">
+                <div class="gallery-overlay">
+                    <h3>High Achiever 2022</h3>
+                    <p>Recognizing academic excellence in our community</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo11.jpeg" alt="Community Engagement">
+                <div class="gallery-overlay">
+                    <h3>Community Engagement</h3>
+                    <p>Building relationships with the broader Australian society</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./photo12.jpeg" alt="Volunteer Recognition">
+                <div class="gallery-overlay">
+                    <h3>Volunteer Recognition</h3>
+                    <p>Honoring those who dedicate their time to our organization</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Samen Al Hojaj</h3>
+                <p>Empowering youth through cultural connection and community support since 2018.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Samen.Alhojaj2018/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="./index.html" style="color: white; text-decoration: none;">Home</a></p>
+                <p><a href="./index.html#events" style="color: white; text-decoration: none;">Events</a></p>
+                <p><a href="./index.html#gallery" style="color: white; text-decoration: none;">Gallery</a></p>
+                <p><a href="./highAchievers.html" style="color: white; text-decoration: none;">High Achievers</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Melbourne, Victoria, Australia</p>
+                <p>Email: Samen.alhojaj2018@gmail.com</p>
+                <p>Phone: 0431 619 520 | 0449 184 030</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </body>
-</html>
