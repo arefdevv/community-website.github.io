@@ -6,6 +6,7 @@
     <title>Samen Al Hojaj | Team</title>
     <script src="https://kit.fontawesome.com/637bf1fd0a.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
             --primary: #056c4e;
@@ -25,16 +26,35 @@
         }
 
         body {
+            padding-top: 70px; /* Space for fixed navbar */
             background: var(--light);
             color: var(--dark);
             overflow-x: hidden;
         }
 
-        /* Modern Navbar (from home page) */
+        /* Page Transition Elements */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+
+        body.transitioning {
+            overflow: hidden;
+        }
+
+        /* Modern Navbar */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
+            height: 70px; /* Fixed height */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -83,6 +103,29 @@
             width: 100%;
         }
 
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Mobile menu styles */
+        .nav-links.active {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            background: white;
+            left: 0;
+            right: 0;
+            top: 70px;
+            padding: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            text-align: center;
+        }
+
         /* Page banner */
         .page-banner {
             background: linear-gradient(rgba(5, 108, 78, 0.8), rgba(10, 129, 99, 0.9)), url('./logo.png');
@@ -90,7 +133,7 @@
             background-position: center;
             color: white;
             text-align: center;
-            padding: 8rem 2rem 4rem;
+            padding: 5rem 2rem 4rem; /* Reduced top padding since we have body padding */
             margin-bottom: 3rem;
         }
 
@@ -239,7 +282,7 @@
             box-shadow: 0 6px 15px rgba(5, 108, 78, 0.3);
         }
 
-        /* Footer (from home page) */
+        /* Footer */
         .footer {
             background: var(--primary);
             color: var(--white);
@@ -281,21 +324,42 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active a {
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active a::after {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+
             .team-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 2rem;
             }
             
             .page-banner {
-                padding: 7rem 1.5rem 3rem;
+                padding: 3rem 1.5rem 3rem;
             }
             
             .page-banner h1 {
                 font-size: 2rem;
+                margin-top: 1rem;
             }
-            
-            .nav-links {
-                display: none;
+
+            .member-card {
+                margin-bottom: 0;
             }
         }
 
@@ -316,56 +380,13 @@
                 font-size: 1.8rem;
             }
         }
-
-        /* Mobile menu button */
-.mobile-menu-btn {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--primary);
-}
-
-/* Mobile menu styles */
-.nav-links.active {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background: white;
-    left: 0;
-    right: 0;
-    top: 70px;
-    padding: 1rem;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 10px 10px;
-    text-align: center;
-}
-
-/* Update media query */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .nav-links.active a {
-        padding: 1rem 0;
-    }
-    
-    .nav-links.active a::after {
-        display: none;
-    }
-    
-    .nav-container {
-        padding: 0.5rem 0;
-    }
-}
     </style>
 </head>
 <body>
-    <!-- Navbar - Matched with home page -->
+    <!-- Page transition overlay -->
+    <div class="page-transition-overlay"></div>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <img src="./logo.png" alt="Samen Al Hojaj Logo" class="logo">
@@ -383,6 +404,7 @@
         </div>
     </nav>
 
+    <!-- Page banner -->
     <div class="page-banner">
         <div class="banner-content">
             <h1>Our Leadership Team</h1>
@@ -390,6 +412,7 @@
         </div>
     </div>
         
+    <!-- Team section -->
     <div class="team-container">
         <div class="team-grid">
             <div class="team-member">
@@ -498,6 +521,7 @@
         </div>
     </div>
 
+    <!-- Contact section -->
     <div class="contact-section">
         <div class="contact-content">
             <h2>Work With Our Team</h2>
@@ -506,7 +530,7 @@
         </div>
     </div>
 
-    <!-- Footer - Matched with home page -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -528,13 +552,16 @@
             <div class="footer-section">
                 <h3>Contact Us</h3>
                 <p>Melbourne, Victoria, Australia</p>
-                <p>Email: info@samenalhojaj.org.au</p>
-                <p>Phone: +61 123 456 789</p>
+                <p>Email: Samen.alhojaj2018@gmail.com</p>
+                <p>Phone: 0431 619 520 | 0449 184 030</p>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             
@@ -547,6 +574,73 @@
                 link.addEventListener('click', function() {
                     navLinks.classList.remove('active');
                 });
+            });
+    
+            // ===== Page Transition Logic =====
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            
+            // Initialize GSAP timeline for page transitions
+            const transitionTl = gsap.timeline({ paused: true });
+            
+            // Define the animation - right to left with slower motion
+            transitionTl
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: 0,
+                    ease: "power1.inOut"
+                })
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                
+            // Get all navigation links that lead to other pages (not anchors)
+            const pageLinks = document.querySelectorAll('a:not([href^="#"])');
+            
+            // Add click event listener to each link
+            pageLinks.forEach(link => {
+                // Skip external links
+                if (link.hostname !== window.location.hostname || link.getAttribute('target') === '_blank') {
+                    return;
+                }
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default navigation
+                    
+                    const href = this.getAttribute('href');
+                    document.body.classList.add('transitioning');
+                    
+                    // Play the first half of the transition animation
+                    transitionTl.play();
+                    
+                    // Navigate to the new page after animation completes
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000);
+                });
+            });
+            
+            // Check if this is a page load after transition
+            if (sessionStorage.getItem('pageTransition') === 'true') {
+                // Start with overlay visible and animate out
+                gsap.set(transitionOverlay, { x: 0 });
+                gsap.to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                sessionStorage.setItem('pageTransition', 'false');
+            } else {
+                // Initial page load - set overlay out of view
+                gsap.set(transitionOverlay, { x: '100%' });
+            }
+            
+            // Set transition flag before navigating away
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('pageTransition', 'true');
             });
         });
     </script>
