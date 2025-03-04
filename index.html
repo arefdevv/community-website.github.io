@@ -6,6 +6,8 @@
     <title>Samen AlHojaj - Empowering Youth Through Culture</title>
     <script src="https://kit.fontawesome.com/637bf1fd0a.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Add GSAP library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
             --primary: #056c4e;
@@ -330,7 +332,69 @@
             color: var(--secondary);
         }
 
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Mobile menu styles */
+        .nav-links.active {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            background: white;
+            left: 0;
+            right: 0;
+            top: 70px;
+            padding: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            text-align: center;
+        }
+
+        /* Page Transition Elements - Added for GSAP */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            transform: translateX(100%); /* Changed from translateY to translateX */
+            pointer-events: none;
+        }
+
+        /* Make sure content doesn't flash during transitions */
+        body.transitioning {
+            overflow: hidden;
+        }
+
+        /* Update media query */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active a {
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active a::after {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -342,67 +406,19 @@
 
             .hero-content h1 {
                 font-size: 2.5rem;
+                margin-top: 100px;
             }
 
             .hero-stats {
                 padding: 2rem;
             }
-
-            .nav-links {
-                display: none;
-            }
         }
-
-
-
-        /* Mobile menu button */
-.mobile-menu-btn {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--primary);
-}
-
-/* Mobile menu styles */
-.nav-links.active {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background: white;
-    left: 0;
-    right: 0;
-    top: 70px;
-    padding: 1rem;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 10px 10px;
-    text-align: center;
-}
-
-/* Update media query */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .nav-links.active a {
-        padding: 1rem 0;
-    }
-    
-    .nav-links.active a::after {
-        display: none;
-    }
-    
-    .nav-container {
-        padding: 0.5rem 0;
-    }
-}
     </style>
 </head>
 <body>
+    <!-- Add page transition overlay -->
+    <div class="page-transition-overlay"></div>
+
     <nav class="navbar">
         <div class="nav-container">
             <img src="./logo.png" alt="Samen Al Hojaj Logo" class="logo">
@@ -485,6 +501,70 @@
             <p>Moments that define our journey</p>
         </div>
         <div class="gallery-grid">
+            <!-- Add these new gallery items inside the gallery-grid div -->
+            <div class="gallery-item">
+                <img src="./IMG_3624.JPG" alt="Mid-Sha'ban Opening Address">
+                <div class="gallery-overlay">
+                    <h3>Mid-Sha'ban Opening Address</h3>
+                    <p>Community members sharing the spiritual significance of Mid-Sha'ban celebration</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://scontent-syd2-1.xx.fbcdn.net/v/t39.30808-6/480098949_942237928103643_2543601716454188760_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=bJTHfE-sV1EQ7kNvgH-vaMM&_nc_oc=Adht8tWxh8D1JUbHRKz5SDD6M0BMLDZLh7Pvfm7_1JPTAb8C2vU1TElfJF1nlAjHbEU&_nc_zt=23&_nc_ht=scontent-syd2-1.xx&_nc_gid=AuJdj1G7LMVQWik9pdeHtvF&oh=00_AYCPRSesomhgWlmQsRYB0iJF0GSeu5qY7UeehnLlusc2_Q&oe=67CCD3F6" alt="Mid-Sha'ban Opening Address">
+                <div class="gallery-overlay">
+                    <h3>Mid-Sha'ban Opening Address</h3>
+                    <p>Community members sharing the spiritual significance of Mid-Sha'ban celebration</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://scontent-syd2-1.xx.fbcdn.net/v/t39.30808-6/479183367_942237724770330_4947608477083764961_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=1S3uuzHrLUoQ7kNvgGrldVH&_nc_oc=AdjRN_7UjaMcEvkhHyNc-zR3GVx3VWDTy4OOSM9Y7wk6toB43M4BeMbtdCmmYglN070&_nc_zt=23&_nc_ht=scontent-syd2-1.xx&_nc_gid=A2SFst8MoZZIY5OZ1T9auE0&oh=00_AYDPYHY0EGJIVWg84wD-i9HyHQno5P2rRSQL8KsTpPYVyQ&oe=67CCCF57" alt="Mid-Sha'ban Planning Committee">
+                <div class="gallery-overlay">
+                    <h3>Community members</h3>
+                    <p>Our vibrant Samen Al Hojaj family united in celebration of culture, community, and shared values.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://scontent-syd2-1.xx.fbcdn.net/v/t39.30808-6/480122194_942238121436957_7861299350808128973_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_lus8C_bELMQ7kNvgGdDCKA&_nc_oc=Adg9VwKeHeTfWPO97XFZl_0E9S-h14_PdDfJQrYAt8HmJHeEKg6EZcaRQw73eifRULM&_nc_zt=23&_nc_ht=scontent-syd2-1.xx&_nc_gid=Au2CzpQKDtQfqzRdhakqFvJ&oh=00_AYD5cQoMlmUBS1ebzPQdyP1Chvqr9LhLXz46hI7JMCZaaQ&oe=67CCD4B0" alt="Mid-Sha'ban Planning Committee">
+                <div class="gallery-overlay">
+                    <h3>Mid shaban celebration cake 2025</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./IMG_3621.JPG" alt="Mid-Sha'ban Recognition Ceremony">
+                <div class="gallery-overlay">
+                    <h3>Academic excellence Recognition</h3>
+                    <p>Celebrating our community's outstanding students and their remarkable academic achievements.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://scontent-syd2-1.xx.fbcdn.net/v/t39.30808-6/479190137_942218641438905_2858727192305408603_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Gae3SpA0F-gQ7kNvgHD_7Wt&_nc_oc=AdgS9qanM4tr-XSaCYsfu-P5PmOtn1Mo6CmWEjT-2FJsnobkOZUn7j7cliq0gopjeQs&_nc_zt=23&_nc_ht=scontent-syd2-1.xx&_nc_gid=AIOcopkrbR92vWFAnkrWkWB&oh=00_AYBRpv3-S2kLM2hXKcuXWBP3o_j2R3YfjsergJ8OdwqWcQ&oe=67CCC6C4" alt="Mid-Sha'ban Recognition Ceremony">
+                <div class="gallery-overlay">
+                    <h3>Academic excellence Recognition</h3>
+                    <p>Celebrating our community's outstanding students and their remarkable academic achievements.</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./IMG_3622.JPG" alt="Mid-Sha'ban Planning Committee">
+                <div class="gallery-overlay">
+                    <h3>Community members</h3>
+                    <p>Dedicated volunteers coordinating our annual Mid-Sha'ban celebration</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://scontent-syd2-1.xx.fbcdn.net/v/t39.30808-6/480093912_942218594772243_3697818929879047403_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Z_hJ7FDJlJQQ7kNvgGRF_H7&_nc_oc=Adj70kJpLgBbaXDlBKJoR1b5dKHcljZng5oHRxdGVRV6JT-Io0gnsRPxhA95vXQMVGw&_nc_zt=23&_nc_ht=scontent-syd2-1.xx&_nc_gid=ASR_p_iHVpfF0OIkm894FZF&oh=00_AYBjoDe2x_KvSmHJmVzDUmMSVKfMqAwpFD5KXB2HlONg4g&oe=67CCE141" alt="Mid-Sha'ban Planning Committee">
+                <div class="gallery-overlay">
+                    <h3>Community members</h3>
+                    <p>Dedicated volunteers coordinating our annual Mid-Sha'ban celebration</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="./IMG_3623.JPG" alt="Mid-Sha'ban Community Gathering">
+                <div class="gallery-overlay">
+                    <h3>Mid-Sha'ban Community Gathering</h3>
+                    <p>Community members sharing food and conversation during the blessed night</p>
+                </div>
+            </div>
             <div class="gallery-item">
                 <img src="./photo1.jpeg" alt="Birth of Imam Mahdi Festival">
                 <div class="gallery-overlay">
@@ -562,13 +642,6 @@
                     <p>Building relationships with the broader Australian society</p>
                 </div>
             </div>
-            <div class="gallery-item">
-                <img src="./photo12.jpeg" alt="Volunteer Recognition">
-                <div class="gallery-overlay">
-                    <h3>Volunteer Recognition</h3>
-                    <p>Honoring those who dedicate their time to our organization</p>
-                </div>
-            </div>
         </div>
     </section>
     <footer class="footer">
@@ -600,6 +673,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Original mobile menu functionality
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             
@@ -613,6 +687,75 @@
                     navLinks.classList.remove('active');
                 });
             });
+    
+            // ===== Page Transition Logic =====
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            
+            // Initialize GSAP timeline for page transitions
+            const transitionTl = gsap.timeline({ paused: true });
+            
+            // Define the animation - right to left with slower motion
+            transitionTl
+                .to(transitionOverlay, { 
+                    duration: 0.8, // Slower animation (was 0.5)
+                    x: 0, // Changed from y to x
+                    ease: "power1.inOut" // Smoother easing
+                })
+                .to(transitionOverlay, { 
+                    duration: 0.8, // Slower animation (was 0.5)
+                    x: '-100%', // Changed from y to x
+                    ease: "power1.inOut", // Smoother easing
+                    delay: 0.2 // Slightly longer delay (was 0.1)
+                });
+                
+            // Get all navigation links that lead to other pages (not anchors)
+            const pageLinks = document.querySelectorAll('a:not([href^="#"])');
+            
+            // Add click event listener to each link
+            pageLinks.forEach(link => {
+                // Skip external links
+                if (link.hostname !== window.location.hostname || link.getAttribute('target') === '_blank') {
+                    return;
+                }
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default navigation
+                    
+                    const href = this.getAttribute('href');
+                    document.body.classList.add('transitioning');
+                    
+                    // Play the first half of the transition animation
+                    transitionTl.play();
+                    
+                    // Navigate to the new page after animation completes
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000); // Longer timeout to match slower animation (was 600ms)
+                });
+            });
+            
+            // Check if this is a page load after transition
+            if (sessionStorage.getItem('pageTransition') === 'true') {
+                // Start with overlay visible and animate out
+                gsap.set(transitionOverlay, { x: 0 }); // Changed from y to x
+                gsap.to(transitionOverlay, { 
+                    duration: 0.8, // Slower animation
+                    x: '-100%', // Changed from y to x
+                    ease: "power1.inOut", // Smoother easing
+                    delay: 0.2 // Slightly longer delay
+                });
+                sessionStorage.setItem('pageTransition', 'false');
+            } else {
+                // Initial page load - set overlay out of view
+                gsap.set(transitionOverlay, { x: '100%' }); // Changed from y to x
+            }
+            
+            // Set transition flag before navigating away
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('pageTransition', 'true');
+            });
         });
     </script>
+
 </body>
+</html>
