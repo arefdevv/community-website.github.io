@@ -6,6 +6,7 @@
     <title>High Achievers | Samen Al Hojaj</title>
     <script src="https://kit.fontawesome.com/637bf1fd0a.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
             --primary: #056c4e;
@@ -25,9 +26,27 @@
         }
 
         body {
+            padding-top: 70px; /* Space for fixed navbar */
             background: var(--light);
             color: var(--dark);
             overflow-x: hidden;
+        }
+
+        /* Page Transition Elements */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+
+        body.transitioning {
+            overflow: hidden;
         }
 
         /* Modern Navbar */
@@ -35,6 +54,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            height: 70px; /* Fixed height */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -83,9 +103,31 @@
             width: 100%;
         }
 
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Mobile menu styles */
+        .nav-links.active {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            background: white;
+            left: 0;
+            right: 0;
+            top: 70px;
+            padding: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            text-align: center;
+        }
+
         /* Page Header */
         .page-header {
-            margin-top: 80px; /* Space for fixed navbar */
             padding: 4rem 2rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
@@ -243,7 +285,7 @@
             margin-top: 1rem;
         }
 
-        /* Footer - Updated to match index page */
+        /* Footer */
         .footer {
             background: var(--primary);
             color: var(--white);
@@ -284,39 +326,46 @@
             color: var(--secondary);
         }
 
-        /* Mobile Responsiveness */
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.5s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                display: none;
             }
-
-            .mobile-menu-toggle {
+            
+            .mobile-menu-btn {
                 display: block;
-                cursor: pointer;
-                z-index: 1001;
             }
-
-            .mobile-menu-toggle span {
-                display: block;
-                width: 30px;
-                height: 3px;
-                background: var(--dark);
-                margin: 5px 0;
-                transition: all 0.3s ease;
+            
+            .nav-links.active a {
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active a::after {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0.5rem 0;
             }
 
             .page-header h1 {
                 font-size: 2rem;
+                margin-top: 1rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
             }
 
             .students-grid {
@@ -329,55 +378,22 @@
             }
         }
 
-        /* Mobile menu button */
-.mobile-menu-btn {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--primary);
-}
-
-/* Mobile menu styles */
-.nav-links.active {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background: white;
-    left: 0;
-    right: 0;
-    top: 70px;
-    padding: 1rem;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 10px 10px;
-    text-align: center;
-}
-
-/* Update media query */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .nav-links.active a {
-        padding: 1rem 0;
-    }
-    
-    .nav-links.active a::after {
-        display: none;
-    }
-    
-    .nav-container {
-        padding: 0.5rem 0;
-    }
-}
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .student-card {
+                margin-bottom: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar (exactly like the index page) -->
+    <!-- Page transition overlay -->
+    <div class="page-transition-overlay"></div>
+
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <img src="./logo.png" alt="Samen Al Hojaj Logo" class="logo">
@@ -513,10 +529,10 @@
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <p><a href="./index.html" style="color: white; text-decoration: none;">Home</a></p>
-                <p><a href="./index.html#events" style="color: white; text-decoration: none;">Events</a></p>
-                <p><a href="./index.html#gallery" style="color: white; text-decoration: none;">Gallery</a></p>
-                <p><a href="./highAchievers.html" style="color: white; text-decoration: none;">High Achievers</a></p>
+                <p><a href="./index.html">Home</a></p>
+                <p><a href="./index.html#events">Events</a></p>
+                <p><a href="./index.html#gallery">Gallery</a></p>
+                <p><a href="./highAchievers.html">High Achievers</a></p>
             </div>
             <div class="footer-section">
                 <h3>Contact Us</h3>
@@ -526,8 +542,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             
@@ -540,6 +559,73 @@
                 link.addEventListener('click', function() {
                     navLinks.classList.remove('active');
                 });
+            });
+    
+            // ===== Page Transition Logic =====
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            
+            // Initialize GSAP timeline for page transitions
+            const transitionTl = gsap.timeline({ paused: true });
+            
+            // Define the animation - right to left with slower motion
+            transitionTl
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: 0,
+                    ease: "power1.inOut"
+                })
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                
+            // Get all navigation links that lead to other pages (not anchors)
+            const pageLinks = document.querySelectorAll('a:not([href^="#"])');
+            
+            // Add click event listener to each link
+            pageLinks.forEach(link => {
+                // Skip external links
+                if (link.hostname !== window.location.hostname || link.getAttribute('target') === '_blank') {
+                    return;
+                }
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default navigation
+                    
+                    const href = this.getAttribute('href');
+                    document.body.classList.add('transitioning');
+                    
+                    // Play the first half of the transition animation
+                    transitionTl.play();
+                    
+                    // Navigate to the new page after animation completes
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000);
+                });
+            });
+            
+            // Check if this is a page load after transition
+            if (sessionStorage.getItem('pageTransition') === 'true') {
+                // Start with overlay visible and animate out
+                gsap.set(transitionOverlay, { x: 0 });
+                gsap.to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                sessionStorage.setItem('pageTransition', 'false');
+            } else {
+                // Initial page load - set overlay out of view
+                gsap.set(transitionOverlay, { x: '100%' });
+            }
+            
+            // Set transition flag before navigating away
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('pageTransition', 'true');
             });
         });
     </script>
