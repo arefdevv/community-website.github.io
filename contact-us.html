@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samen Al Hojaj | Contact Us</title>
     <script src="https://kit.fontawesome.com/637bf1fd0a.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./contact-us.css">
-    <script src="./contact.js"></script>
+    <!-- Add GSAP library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function () {
             emailjs.init("GdOVDS0xw8ke9w8SH");
         })();
     </script>
-    <title>Samen Al Hojaj | Contact Us</title>
     <style>
         :root {
             --primary: #056c4e;
@@ -36,6 +36,24 @@
             background: var(--light);
             color: var(--dark);
             overflow-x: hidden;
+            padding-top: 70px; /* Space for fixed navbar */
+        }
+
+        /* Page Transition Elements */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+
+        body.transitioning {
+            overflow: hidden;
         }
 
         /* Modern Navbar */
@@ -43,6 +61,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            height: 70px; /* Fixed height */
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -89,6 +108,29 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Mobile menu styles */
+        .nav-links.active {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            background: white;
+            left: 0;
+            right: 0;
+            top: 70px;
+            padding: 1rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            text-align: center;
         }
 
         /* Contact Page Styles */
@@ -315,12 +357,6 @@
             opacity: 1;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
         .footer .social-links a {
             color: var(--white);
             font-size: 1.5rem;
@@ -333,6 +369,26 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links.active a {
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active a::after {
+                display: none;
+            }
+            
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+
             .contact-container {
                 grid-template-columns: 1fr;
             }
@@ -347,57 +403,37 @@
 
             .header-content h1 {
                 font-size: 2rem;
+                margin-top: 1rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
             }
         }
 
-        /* Mobile menu button */
-.mobile-menu-btn {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--primary);
-}
-
-/* Mobile menu styles */
-.nav-links.active {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background: white;
-    left: 0;
-    right: 0;
-    top: 70px;
-    padding: 1rem;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 10px 10px;
-    text-align: center;
-}
-
-/* Update media query */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-btn {
-        display: block;
-    }
-    
-    .nav-links.active a {
-        padding: 1rem 0;
-    }
-    
-    .nav-links.active a::after {
-        display: none;
-    }
-    
-    .nav-container {
-        padding: 0.5rem 0;
-    }
-}
+        @media (max-width: 480px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .info-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Page transition overlay -->
+    <div class="page-transition-overlay"></div>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="./index.html">
@@ -405,7 +441,7 @@
             </a>
             <div class="nav-links">
                 <a href="./index.html">Home</a>
-                <a href="./index.html#about-us">About</a>
+                <a href="./index.html#events">Events</a>
                 <a href="./index.html#gallery">Gallery</a>
                 <a href="./highAchievers.html">High Achievers</a>
                 <a href="./team.html">Our Team</a>
@@ -417,6 +453,7 @@
         </div>
     </nav>
 
+    <!-- Page header -->
     <div class="page-header">
         <div class="header-content">
             <h1>Contact Us</h1>
@@ -424,6 +461,7 @@
         </div>
     </div>
 
+    <!-- Contact content -->
     <div class="contact-container">
         <div class="contact-info">
             <h2 class="info-header">Get in Touch</h2>
@@ -501,6 +539,7 @@
         </div>
     </div>
     
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -527,8 +566,14 @@
             </div>
         </div>
     </footer>
+
+    <!-- Email JS script -->
+    <script src="./contact.js"></script>
+
+    <!-- Combined JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
             
@@ -542,7 +587,93 @@
                     navLinks.classList.remove('active');
                 });
             });
+    
+            // ===== Page Transition Logic =====
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            
+            // Initialize GSAP timeline for page transitions
+            const transitionTl = gsap.timeline({ paused: true });
+            
+            // Define the animation - right to left with slower motion
+            transitionTl
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: 0,
+                    ease: "power1.inOut"
+                })
+                .to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                
+            // Get all navigation links that lead to other pages (not anchors)
+            const pageLinks = document.querySelectorAll('a:not([href^="#"])');
+            
+            // Add click event listener to each link
+            pageLinks.forEach(link => {
+                // Skip external links
+                if (link.hostname !== window.location.hostname || link.getAttribute('target') === '_blank') {
+                    return;
+                }
+                
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default navigation
+                    
+                    const href = this.getAttribute('href');
+                    document.body.classList.add('transitioning');
+                    
+                    // Play the first half of the transition animation
+                    transitionTl.play();
+                    
+                    // Navigate to the new page after animation completes
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000);
+                });
+            });
+            
+            // Check if this is a page load after transition
+            if (sessionStorage.getItem('pageTransition') === 'true') {
+                // Start with overlay visible and animate out
+                gsap.set(transitionOverlay, { x: 0 });
+                gsap.to(transitionOverlay, { 
+                    duration: 0.8,
+                    x: '-100%',
+                    ease: "power1.inOut",
+                    delay: 0.2
+                });
+                sessionStorage.setItem('pageTransition', 'false');
+            } else {
+                // Initial page load - set overlay out of view
+                gsap.set(transitionOverlay, { x: '100%' });
+            }
+            
+            // Set transition flag before navigating away
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('pageTransition', 'true');
+            });
         });
+
+        function showText() {
+            // Placeholder for any form submission completion functions
+            console.log('Form submitted');
+        }
+
+        function contact(event) {
+            event.preventDefault();
+            
+            emailjs.sendForm('service_v4ky6i7', 'template_rzdx8bb', event.target)
+                .then(function() {
+                    console.log('SUCCESS!');
+                    alert('Your message has been sent successfully!');
+                    document.getElementById('contact__form').reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Failed to send message. Please try again.');
+                });
+        }
     </script>
 </body>
 </html>
